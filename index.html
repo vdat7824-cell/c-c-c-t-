@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8/3 Heart Tree - Laptop Symmetry Gallery (6 Photos)</title>
+    <style>
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; 
+            background: radial-gradient(circle at 50% 50%, #fff9f0, #ffe4e1, #ffd1dc);
+            font-family: 'Segoe UI', Tahoma, sans-serif; cursor: pointer; 
+        }
+        
+        #hint { 
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            color: #d32f2f; font-size: 22px; font-weight: bold; text-align: center; 
+            z-index: 2000; animation: pulse 1.5s infinite; pointer-events: none;
+            padding: 30px; border-radius: 60px; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+        }
+        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } }
+        
+        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; }
+
+        /* KHUNG CHỮ: Góc trên bên trái */
+        #text-box { 
+            position: absolute; top: 4vh; left: 3vw; width: 26vw; z-index: 100; 
+            pointer-events: none; padding: 25px; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);
+            box-sizing: border-box; box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+        }
+        .msg { 
+            font-size: 1.1vw; color: #4a2c2a; font-weight: 600; line-height: 1.6; 
+            margin-bottom: 10px; text-align: left; text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+            min-height: 1.4em;
+        }
+        .sig { font-weight: 800; color: #d32f2f; margin-top: 15px; display: block; opacity: 0; transition: opacity 1s; text-align: right; font-size: 1.2vw; }
+
+        /* BỐ CỤC ẢNH ĐỐI XỨNG: 3 TRÁI, 3 PHẢI, CÂY GIỮA */
+        #image-container { 
+            position: absolute; bottom: 5vh; left: 0; width: 100vw; 
+            height: 35vh; z-index: 50; pointer-events: none; 
+            display: flex; justify-content: space-between; padding: 0 2vw; box-sizing: border-box;
+        }
+        
+        .photo-frame {
+            background-color: #fff; border: 4px solid #fff; border-radius: 10px; 
+            overflow: hidden; box-shadow: 0 10px 30px rgba(255, 77, 77, 0.2);
+            opacity: 0; transform: translateY(100px) scale(0.5);
+            transition: all 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            aspect-ratio: 4 / 3; /* Tỉ lệ ảnh ngang */
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- Hiệu ứng Active lãng mạn cho 3 ảnh bên TRÁI --- */
+        #p1.active { opacity: 1; transform: translateY(0) scale(1) rotate(-8deg); }
+        #p2.active { opacity: 1; transform: translateY(-30px) scale(1) rotate(-4deg); }
+        #p3.active { opacity: 1; transform: translateY(-50px) scale(1.05) rotate(0deg); }
+
+        /* --- Hiệu ứng Active mọc đối xứng cho 3 ảnh bên PHẢI --- */
+        #p4.active { opacity: 1; transform: translateY(-50px) scale(1.05) rotate(0deg); }
+        #p5.active { opacity: 1; transform: translateY(-30px) scale(1) rotate(4deg); }
+        #p6.active { opacity: 1; transform: translateY(0) scale(1) rotate(8deg); }
+
+        @media (max-width: 1024px) {
+            .msg { font-size: 15px; }
+            .sig { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="myAudio" loop>
+        <source src="https://www.dropbox.com/scl/fi/kkwvyoz9gmito7yp7m60m/nhac.mp3.mp3?rlkey=q36w4k638tcwt2f437kkkvw64&st=7m8sp12e&dl=1" type="audio/mpeg">
+    </audio>
+
+    <div id="hint">🌳 NHẤN VÀO ĐÂY NÈ ❤️<br><small style="font-weight:normal;">(Chúc mừng 8-3 các CỐT)</small></div>
+
+    <div id="text-box">
+        <div class="msg" id="m1"></div>
+        <div class="msg" id="m2"></div>
+        <div class="msg" id="m3"></div>
+        <div class="msg" id="m4"></div> 
+        <div class="sig" id="m5">-- Your Friend --</div>
+    </div>
+
+    <div id="image-container">
+        <div style="display: flex; width: 40%; justify-content: space-around; align-items: flex-end;">
+            <div class="photo-frame" id="p1" style="width: 30%;"><img src="https://s186.convertio.me/p/1p0qyoCZ7vcyKbyybmXzzA/5935268324b7bd99161bcc0a791babb7/z7576073521809_3784f629422afedb6766f4a5f3689b1a.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=Pic+1'" alt="1"></div>
+            <div class="photo-frame" id="p2" style="width: 30%;"><img src="https://s185.convertio.me/p/TurY6ZoUaaHi5Zl6iRE3MA/5935268324b7bd99161bcc0a791babb7/z7576174634862_5ecd26de8ff7e262784d36c5f7bdd9d6.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=Pic+2'" alt="2"></div>
+            <div class="photo-frame" id="p3" style="width: 30%;"><img src="https://s178.convertio.me/p/MghuP0Sx02TuuPj43Fl8sA/5935268324b7bd99161bcc0a791babb7/z7576073523088_79f87c51cb6e78b3d421c46c75aabd0b.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=Pic+3'" alt="3"></div>
+        </div>
+
+        <div style="display: flex; width: 40%; justify-content: space-around; align-items: flex-end;">
+            <div class="photo-frame" id="p4" style="width: 30%;"><img src="https://s144.convertio.me/p/RLiSNQhpzPivyV-9ZI9RKw/5935268324b7bd99161bcc0a791babb7/z7576073524408_d1d17ceb9df85743f440fb16ffa6c3f3.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=Pic+4'" alt="4"></div>
+            <div class="photo-frame" id="p5" style="width: 30%;"><img src="https://s184.convertio.me/p/vimD3Ou1h4AL2W3jCDCRVw/5935268324b7bd99161bcc0a791babb7/z7576073528753_805bee0bd5744b219daa5341a832222f.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=Pic+5'" alt="5"></div>
+            <div class="photo-frame" id="p6" style="width: 30%;"><img src="https://s145.convertio.me/p/x7qyRNDZR2XAAE1xlQfURw/5935268324b7bd99161bcc0a791babb7/z7576150438692_41ced9a7b74b5e442cd2304bdf4d1bc2.jpeg" onerror="this.src='https://via.placeholder.com/600x450?text=Pic+6'" alt="6"></div>
+        </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const cvs = document.getElementById('canvas');
+        const ctx = cvs.getContext('2d');
+        const audio = document.getElementById('myAudio');
+        let w, h, treeX, groundY, canopyY, scale;
+        let particles = [], clouds = [], magicDust = [], state = 'waiting'; 
+        let seed = { x: 0, y: -50, speed: 4.5 }, treeGrow = 0, started = false;
+        let particleCount = 0;
+        const MAX_PARTICLES = 2500; 
+
+        const colors = ['#FF0000', '#FF4500', '#FF8C00', '#FFD700', '#FF595E', '#FFB347', '#FFE66D', '#C1121F'];
+        const messages = [
+            "Chúc mừng ngày Quốc tế Phụ nữ 8/3 các Cốt của bảnh!",
+            "Chúc các fen luôn toả sáng như những vì tinh tú trên cao.",
+            "Chúc fen mãi ngọt ngào, hạnh phúc và mạnh mẽ như gốc cổ thụ.",
+            "Lun vui vẻ, hạnh phúc và tự tin với chính mình."
+        ];
+
+        function init() {
+            w = cvs.width = window.innerWidth; 
+            h = cvs.height = window.innerHeight;
+            treeX = w * 0.5; // Cây nằm chính giữa tuyệt đối làm phân cách
+            scale = Math.min(w, h) / 45;
+            canopyY = h * 0.4; groundY = h * 0.9; seed.x = treeX;
+
+            clouds = [];
+            for(let i = 0; i < 6; i++) {
+                clouds.push({ x: Math.random() * w, y: Math.random() * (h * 0.3), s: Math.random() * 0.2 + 0.1, r: Math.random() * 20 + 20 });
+            }
+            magicDust = [];
+            for(let i=0; i<60; i++) magicDust.push({ x: Math.random()*w, y: Math.random()*h, s: Math.random()*1.5, o: Math.random(), sp: Math.random()*0.1+0.05 });
+        }
+        window.addEventListener('resize', init); init();
+
+        function drawMagicDust() {
+            magicDust.forEach(d => {
+                ctx.fillStyle = `rgba(255, 255, 255, ${d.o})`;
+                ctx.beginPath(); ctx.arc(d.x, d.y, d.s, 0, Math.PI*2); ctx.fill();
+                d.y -= d.sp; if(d.y < 0) d.y = h;
+            });
+        }
+
+        function drawCloud(c) {
+            ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+            ctx.arc(c.x + c.r*1.2, c.y - c.r*0.2, c.r*1.2, 0, Math.PI*2);
+            ctx.arc(c.x + c.r*2.2, c.y, c.r, 0, Math.PI*2);
+            ctx.fill();
+            c.x += c.s; if (c.x > w + 150) c.x = -250;
+        }
+
+        function getHeartPoint(t, r) {
+            let x = 16 * Math.pow(Math.sin(t), 3);
+            let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            return { x: x * r * scale, y: y * scale * r };
+        }
+
+        class Heart {
+            constructor(spawnAtCanopy) { this.reset(spawnAtCanopy); }
+            reset(spawnAtCanopy) {
+                this.t = Math.random() * Math.PI * 2; this.r = Math.sqrt(Math.random()); 
+                const pos = getHeartPoint(this.t, this.r); 
+                this.targetX = treeX + pos.x; this.targetY = canopyY + pos.y;
+                if (spawnAtCanopy) { this.x = this.targetX; this.y = this.targetY; this.opacity = 1; this.state = 'stay'; } 
+                else { this.x = treeX; this.y = groundY - 20; this.opacity = 0; this.state = 'fly'; }
+                this.size = Math.random() * 2 + 6; this.color = colors[Math.floor(Math.random() * colors.length)]; 
+                this.speed = Math.random() * 0.008 + 0.004; this.wobble = Math.random() * Math.PI * 2;
+                this.velX = (Math.random() - 0.5) * 4; 
+            }
+            update() {
+                if (this.state === 'fly') {
+                    this.x += (this.targetX - this.x) * this.speed; this.y += (this.targetY - this.y) * this.speed;
+                    if (this.opacity < 1) this.opacity += 0.04; if (Math.abs(this.x - this.targetX) < 1) this.state = 'stay';
+                } else if (this.state === 'stay') { if (Math.random() < 0.0006) this.state = 'fall'; } 
+                else if (this.state === 'fall') {
+                    this.y += 0.15; // RỤNG SIÊU CHẬM lãng mạn
+                    this.x += this.velX * 0.2 + Math.sin(this.wobble) * 1.2; this.wobble += 0.02;
+                    if (this.y > h) this.reset(false);
+                }
+            }
+            draw() { 
+                ctx.save(); ctx.globalAlpha = this.opacity; ctx.fillStyle = this.color; ctx.translate(this.x, this.y); ctx.beginPath(); ctx.moveTo(0, 0); 
+                ctx.bezierCurveTo(-this.size/2, -this.size/2, -this.size, 0, 0, this.size); ctx.bezierCurveTo(this.size, 0, this.size/2, -this.size/2, 0, 0); ctx.fill(); ctx.restore(); 
+            }
+        }
+
+        function drawTree(p) {
+            ctx.lineCap = 'round'; ctx.strokeStyle = '#3d2b1f';
+            let trunkBaseW = scale * 8 * (1 - p * 0.2); let trunkTopW = scale * 1.5;
+            ctx.beginPath(); ctx.moveTo(treeX - trunkBaseW/2, groundY); 
+            ctx.quadraticCurveTo(treeX - trunkBaseW/4, groundY - 45, treeX - trunkTopW/2, groundY - (groundY - canopyY) * 0.55 * p);
+            ctx.lineTo(treeX + trunkTopW/2, groundY - (groundY - canopyY) * 0.55 * p);
+            ctx.quadraticCurveTo(treeX + trunkBaseW/4, groundY - 45, treeX + trunkBaseW/2, groundY);
+            ctx.fillStyle = '#3d2b1f'; ctx.fill();
+            if (p > 0.4) {
+                let pp = (p - 0.4) * 1.6; ctx.lineWidth = scale * 0.6;
+                const branches = [-14, -8, -2, 5, 10, 15];
+                branches.forEach(bx => {
+                    ctx.beginPath(); ctx.moveTo(treeX, groundY - (groundY - canopyY) * 0.45);
+                    ctx.quadraticCurveTo(treeX + (scale * bx * 0.4) * pp, canopyY + 60, treeX + (scale * bx) * pp, canopyY + 10); ctx.stroke();
+                });
+            }
+        }
+
+        function typeWriter(id, text, i, callback) {
+            if (i < text.length) {
+                document.getElementById(id).innerHTML += text.charAt(i);
+                setTimeout(() => typeWriter(id, text, i + 1, callback), 45);
+            } else if (callback) setTimeout(callback, 700);
+        }
+
+        function startTimeline() {
+            typeWriter("m1", messages[0], 0, () => {
+                typeWriter("m2", messages[1], 0, () => {
+                    typeWriter("m3", messages[2], 0, () => {
+                        typeWriter("m4", messages[3], 0, () => {
+                            document.getElementById("m5").style.opacity = "1";
+                            // CHỮ XONG -> NGHỈ 5 GIÂY -> HIỆN LẦN LƯỢT 6 ẢNH
+                            setTimeout(() => {
+                                document.getElementById('p1').classList.add('active');
+                                setTimeout(() => { document.getElementById('p2').classList.add('active');
+                                    setTimeout(() => { document.getElementById('p3').classList.add('active');
+                                        setTimeout(() => { document.getElementById('p4').classList.add('active');
+                                            setTimeout(() => { document.getElementById('p5').classList.add('active'); 
+                                                setTimeout(() => { document.getElementById('p6').classList.add('active'); }, 1200);
+                                            }, 1200);
+                                        }, 1200);
+                                    }, 1200);
+                                }, 1200);
+                            }, 5000); 
+                        });
+                    });
+                });
+            });
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, w, h); drawMagicDust(); clouds.forEach(drawCloud);
+            if (state === 'falling_seed') {
+                ctx.fillStyle = '#FF0000'; ctx.beginPath(); ctx.arc(seed.x, seed.y, 8, 0, Math.PI * 2); ctx.fill();
+                seed.y += seed.speed; if (seed.y >= groundY) state = 'growing_tree';
+            } else if (state === 'growing_tree') {
+                drawTree(treeGrow); treeGrow += 0.008; 
+                if (treeGrow >= 1) { 
+                    state = 'blooming'; 
+                    // CÂY XONG -> NGHỈ 5 GIÂY -> CHỮ CHẠY
+                    setTimeout(startTimeline, 5000);
+                }
+            } else if (state === 'blooming') { 
+                drawTree(1); 
+                if (particleCount < MAX_PARTICLES) {
+                    for(let i=0; i<10; i++) { particles.push(new Heart(particleCount < 1200)); particleCount++; }
+                }
+                particles.forEach(p => { p.update(); p.draw(); }); 
+            }
+            requestAnimationFrame(loop);
+        }
+
+        window.addEventListener('click', function() {
+            if (started) return; started = true;
+            audio.play().catch(() => {});
+            document.getElementById('hint').style.display = 'none'; state = 'falling_seed';
+        });
+        loop(); 
+    </script>
+</body>
+</html>
